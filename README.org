@@ -1,0 +1,32 @@
+* api-duckling
+  :PROPERTIES:
+  :CUSTOM_ID: api-duckling
+  :END:
+
+FIXME
+
+** Prerequisites
+   :PROPERTIES:
+   :CUSTOM_ID: prerequisites
+   :END:
+
+You will need [[https://github.com/technomancy/leiningen][Leiningen]]
+2.0.0 or above installed.
+
+** Running
+   :PROPERTIES:
+   :CUSTOM_ID: running
+   :END:
+
+To start a web server for the application, run:
+
+#+BEGIN_EXAMPLE
+    lein ring server
+#+END_EXAMPLE
+
+** License
+   :PROPERTIES:
+   :CUSTOM_ID: license
+   :END:
+
+Copyright © 2017 FIXME
