@@ -1,29 +1,31 @@
 (ns api-duckling.handler
-  (:require [compojure.core :refer :all]
+  (:require
+   [compojure.core :refer :all]
             [compojure.route :as route]
             [compojure.handler :as handler]
             [ring.middleware.json :as midjson]
             [ring.middleware.defaults :refer [wrap-defaults api-defaults site-defaults]]
+            [clojure.string :as str]
             [clojure.tools.logging :as log]
             [duckling.core :as p]
 ))
 
-(defn init []
+(defn init! []
   (log/info "Loading modules ...")
-  (p/load!))
+  (let [res (p/load!)]
+    (log/debugf "Modules loaded:\n %s" res)))
 
 (defn duckling-handler [request]
-  (let [name (or (get-in request [:params :name])
-                 (get-in request [:body :name])
-                 "John Doe")]
+  (log/debugf "request: %s" request)
+  (let [{:keys [text module dims] :or {module "ro$core", text ""}} (get request :body {})
+        dims (if dims (into [] (map keyword (str/split dims #","))) [])]
+    (log/debugf "text = %s, module = %s, dims= %s" text module dims)
     {:status 200
-     :body {:name name
-            :desc (str "The name you sent to me was " name)}})
-  )
+     :body {:tokens (p/parse (keyword module) text dims)}}))
 
 (defroutes app-routes
-  (POST "/" request (duckling-handler request))
-  (route/resources "/")
+  (POST "/parse" request (duckling-handler request))
+  ;; (route/resources "/")
   (route/not-found "Not Found"))
 
 (def app

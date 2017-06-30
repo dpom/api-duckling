@@ -6,12 +6,15 @@
                  [ring/ring-json "0.4.0"]
                  [ring/ring-defaults "0.3.0"]
                  [org.clojure/tools.logging "0.4.0"]
+                 [cheshire "5.7.1"]
                  [clj-duckling "0.4.24"]]
   :plugins [[lein-ancient "0.6.10" :exclusions [org.clojure/clojure]]
             [venantius/ultra "0.5.1" :exclusions [org.clojure/clojure]]
             [lein-ring "0.9.7" :exclusions [org.clojure/clojure]]]
   :ring {:handler api-duckling.handler/app
-         :init api-duckling.handler/init}
-  :profiles
-  {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]
-                        [ring/ring-mock "0.3.0"]]}})
+         :init api-duckling.handler/init!}
+  :profiles {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]
+                                  [ring/ring-mock "0.3.0"]]
+                   :jvm-opts ["-Dlogback.configurationFile=logback.xml"]}
+             :test {:jvm-opts ["-Dlogback.configurationFile=logback.xml"]}}
+  )
