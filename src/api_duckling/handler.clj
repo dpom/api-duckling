@@ -6,14 +6,20 @@
             [ring.middleware.json :as midjson]
             [ring.middleware.defaults :refer [wrap-defaults api-defaults site-defaults]]
             [clojure.string :as str]
-            [clojure.tools.logging :as log]
+            [environ.core :refer [env]]
+            [taoensso.timbre :as log]
+            [taoensso.timbre.appenders.core :as appenders]
             [duckling.core :as p]
 ))
 
 (defn init! []
+  (log/set-level! (keyword (env :timbre-level)))
+  (when-let [logfile (env :log-file)]
+    (log/merge-config!
+     {:appenders {:spit (appenders/spit-appender {:fname logfile})}}))
   (log/info "Loading modules ...")
   (let [res (p/load!)]
-    (log/debugf "Modules loaded:\n %s" res)))
+    (log/tracef "Modules loaded:\n %s" res)))
 
 (defn duckling-handler [request]
   (log/debugf "request: %s" request)
