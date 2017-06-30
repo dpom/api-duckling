@@ -9,6 +9,7 @@
                  [environ "1.1.0"]
                  [com.taoensso/timbre "4.10.0"]
                  [clj-duckling "0.4.24"]]
+  :local-repo "repo"
   :plugins [[lein-ancient "0.6.10" :exclusions [org.clojure/clojure]]
             [venantius/ultra "0.5.1" :exclusions [org.clojure/clojure]]
             [lein-ring "0.9.7" :exclusions [org.clojure/clojure]]
@@ -19,7 +20,8 @@
                                   [ring/ring-mock "0.3.0"]]
                    :env {:timbre-level "trace"}}
              :test {:env {:timbre-level "info"}}
-             :prod {:env {:timbre-level "info"
+             :prod {:jvm-opts ["-Xss512k -Xmx512m"]
+                    :env {:timbre-level "info"
                           :log-file "log/api_duckling.log"}}
 }
   )

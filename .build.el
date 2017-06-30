@@ -37,6 +37,9 @@
 
 (task 'deploy '() "deploy to clojars" '(lambda (&optional x) "lein deploy clojars"))
 
+(task 'deps '() "load libs" '(lambda (&optional x) "lein deps"))
+
+(task 'heroku '(deps) "deploy to heroku" '(lambda (&optional x) "heroku container:push web"))
 
 ;; Local Variables:
 ;; no-byte-compile: t
