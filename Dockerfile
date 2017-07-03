@@ -8,6 +8,10 @@ WORKDIR /usr/src/app
 
 # RUN lein deps
 
+ENV PORT 3000
+
+EXPOSE $PORT
+
 COPY . /usr/src/app
 
-CMD lein ring server-headless ${PORT}
+CMD lein ring server-headless $PORT 

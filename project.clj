@@ -1,4 +1,4 @@
-(defproject api-duckling "0.1.0-SNAPSHOT"
+(defproject api-duckling "1.0-dev02"
   :description "A JSON Web Services for clj-duckling."
   :min-lein-version "2.0.0"
   :dependencies [[org.clojure/clojure "1.8.0"]
@@ -17,7 +17,7 @@
   :ring {:handler api-duckling.handler/app
          :init api-duckling.handler/init!}
   :profiles {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]
-                                  [ring/ring-mock "0.3.0"]]
+                                  [ring/ring-mock "0.3.1"]]
                    :env {:timbre-level "trace"}}
              :test {:env {:timbre-level "info"}}
              :prod {:jvm-opts ["-Xss512k -Xmx512m"]

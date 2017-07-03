@@ -10,16 +10,19 @@
 
 (setq project-version (ent-get-version))
 
+(defun make-image-tag (&optional version)
+   "Make docker image tag using ent variables."
+   (concat "dpom/" ent-project-name ":" (or version project-version)))
 
 ;; tasks
 
 (load ent-init-file)
 
-(task 'org2md '() "convert org doc to md" '(lambda (&optional x) "cd docs; make all; cd .."))
+;; (task 'org2md '() "convert org doc to md" '(lambda (&optional x) "cd docs; make all; cd .."))
 
-(task 'api '() "build the API documentation" '(lambda (&optional x) "lein codox"))
+;; (task 'api '() "build the API documentation" '(lambda (&optional x) "lein codox"))
 
-(task 'doc '(org2md api) "build the project documentation" '(lambda (&optional x) "ls docs"))
+;; (task 'doc '(org2md api) "build the project documentation" '(lambda (&optional x) "ls docs"))
 
 (task 'format '() "format the project" '(lambda (&optional x) "lein cljfmt fix"))
 
@@ -35,11 +38,21 @@
 
 (task 'run '() "run the server" '(lambda (&optional x) "lein ring server"))
 
-(task 'deploy '() "deploy to clojars" '(lambda (&optional x) "lein deploy clojars"))
+;; (task 'deploy '() "deploy to clojars" '(lambda (&optional x) "lein deploy clojars"))
 
 (task 'deps '() "load libs" '(lambda (&optional x) "lein deps"))
 
-(task 'heroku '(deps) "deploy to heroku" '(lambda (&optional x) "heroku container:push web"))
+;; (task 'heroku '(deps) "deploy to heroku" '(lambda (&optional x) "heroku container:push web"))
+
+(task 'dockerbuild '(deps) "build docker image" '(lambda (&optional x) (concat "docker"
+                                                                               " build"
+                                                                               " -t " (make-image-tag)
+                                                                               " -t " (make-image-tag "latest")
+                                                                               " .")))
+
+(task 'dockerpush '(dockerbuild) "push image to docker hub" '(lambda (&optional x) (concat "docker push " (make-image-tag)
+                                                                                           ";docker push " (make-image-tag "latest"))))
+
 
 ;; Local Variables:
 ;; no-byte-compile: t
