@@ -1,0 +1,6 @@
+/target
+/.lein-*
+/.git
+.build.el
+README.org
+/bin

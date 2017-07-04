@@ -1,29 +1,39 @@
 (ns api-duckling.handler
-  (:require [compojure.core :refer :all]
+  (:require
+   [compojure.core :refer :all]
             [compojure.route :as route]
             [compojure.handler :as handler]
             [ring.middleware.json :as midjson]
             [ring.middleware.defaults :refer [wrap-defaults api-defaults site-defaults]]
-            [clojure.tools.logging :as log]
+            [clojure.string :as str]
+            [environ.core :refer [env]]
+            [taoensso.timbre :as log]
+            [taoensso.timbre.appenders.core :as appenders]
             [duckling.core :as p]
 ))
 
-(defn init []
+(defn init! []
+  (log/set-level! (keyword (env :timbre-level)))
+  (when-let [logfile (env :log-file)]
+    (log/merge-config!
+     {:appenders {:spit (appenders/spit-appender {:fname logfile})}}))
   (log/info "Loading modules ...")
-  (p/load!))
+  (let [res (p/load!)]
+    (log/tracef "Modules loaded:\n %s" res)))
 
-(defn duckling-handler [request]
-  (let [name (or (get-in request [:params :name])
-                 (get-in request [:body :name])
-                 "John Doe")]
+(defn parser-handler [request]
+  (log/debugf "request: %s" request)
+  (let [{:keys [text module dims] :or {module "ro$core", text ""}} (get request :body {})
+        dims (if dims (into [] (map keyword (str/split dims #","))) [])]
+    (log/debugf "text = %s, module = %s, dims= %s" text module dims)
     {:status 200
-     :body {:name name
-            :desc (str "The name you sent to me was " name)}})
-  )
+     :body {:module module
+            :dims (str/join "," dims)
+            :tokens (p/parse (keyword module) text dims)}}))
 
 (defroutes app-routes
-  (POST "/" request (duckling-handler request))
-  (route/resources "/")
+  (POST "/parse" request (parser-handler request))
+  ;; (route/resources "/")
   (route/not-found "Not Found"))
 
 (def app
