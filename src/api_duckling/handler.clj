@@ -21,16 +21,18 @@
   (let [res (p/load!)]
     (log/tracef "Modules loaded:\n %s" res)))
 
-(defn duckling-handler [request]
+(defn parser-handler [request]
   (log/debugf "request: %s" request)
   (let [{:keys [text module dims] :or {module "ro$core", text ""}} (get request :body {})
         dims (if dims (into [] (map keyword (str/split dims #","))) [])]
     (log/debugf "text = %s, module = %s, dims= %s" text module dims)
     {:status 200
-     :body {:tokens (p/parse (keyword module) text dims)}}))
+     :body {:module module
+            :dims (str/join "," dims)
+            :tokens (p/parse (keyword module) text dims)}}))
 
 (defroutes app-routes
-  (POST "/parse" request (duckling-handler request))
+  (POST "/parse" request (parser-handler request))
   ;; (route/resources "/")
   (route/not-found "Not Found"))
 

@@ -9,5 +9,5 @@
       "ContainerPort": "3000"
     }
   ],
-  "Logging": "/usr/src/app/log"
+  "Logging": "/var/log/api-duckling"
 }

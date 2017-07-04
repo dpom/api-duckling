@@ -1,4 +1,4 @@
-(defproject api-duckling "1.0-dev02"
+(defproject api-duckling "1.0-dev03"
   :description "A JSON Web Services for clj-duckling."
   :min-lein-version "2.0.0"
   :dependencies [[org.clojure/clojure "1.8.0"]
@@ -22,6 +22,6 @@
              :test {:env {:timbre-level "info"}}
              :prod {:jvm-opts ["-Xss512k -Xmx512m"]
                     :env {:timbre-level "info"
-                          :log-file "log/api_duckling.log"}}
+                          :log-file "/var/log/api_duckling/prod.log"}}
 }
   )
