@@ -2,7 +2,7 @@
 
 [ $# -eq 0 ] && { echo "Usage: $0 \"text\" [dims [module]]"; exit 1; }
 
-# URL=http://sample-env.2riifp3zdg.eu-central-1.elasticbeanstalk.com/parse
+# URL=http://sample-env.2riifp3zdg.eu-central-1.elasticbeanstalk.com/message
 URL=http://localhost:3000/message
 
 # MODULE="ro\$core"

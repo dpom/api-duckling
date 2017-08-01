@@ -3,7 +3,7 @@
   :CUSTOM_ID: api-duckling
   :END:
 
-FIXME
+A JSON Web Services for clj-duckling.
 
 ** Prerequisites
    :PROPERTIES:
@@ -20,13 +20,22 @@ You will need [[https://github.com/technomancy/leiningen][Leiningen]]
 
 To start a web server for the application, run:
 
-#+BEGIN_EXAMPLE
-    lein ring server
-#+END_EXAMPLE
+#+BEGIN_SRC sh 
+lein ring server
+#+END_SRC
+
+and test it with:
+#+BEGIN_SRC sh 
+curl -X POST http://localhost:3000/message --data '{"module": "en$core" ,"q":"put your text here"}' --header "Content-type:application/json"
+#+END_SRC
+or using the page "http://localhost:3000/test"
+
+The application is also online 
+http://sample-env.2riifp3zdg.eu-central-1.elasticbeanstalk.com/test
 
 ** License
    :PROPERTIES:
    :CUSTOM_ID: license
    :END:
 
-Copyright © 2017 FIXME
+Copyright © 2017 Dan Pomohaci
