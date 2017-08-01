@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" >
+    <head>
+        <meta  charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Testing clj-duckling</title>
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/foundation.css" />
+        <link rel="stylesheet" type="text/css" href="css/test.css" />
+        <script src="js/vendor/modernizr.js"></script>
+    </head>
+    <body>
+        <section role="main" class="scroll-container">
+            <div class="row">
+                    <form id="form_test" action="test" method="post">
+                        <fieldset>
+                            <legend>Request</legend>
+                            <div class="row">
+                                <div class="small-3 columns"> <label for="test_id" class="right inline">Module Id:</label> </div>
+                                <div class="small-9 columns">
+                                    <select id="test_module"  name="module">
+                                        <option value="ro$core">ro$core</option>
+                                        <option value="en$core">en$core</option>
+                                        <option value="fr$core">fr$core</option>
+                                        <option value="de$core">de$core</option>
+                                        <option value="it$core">it$core</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="small-3 columns"> <label for="test_dims" class="right inline">Dimensions:</label> </div>
+                                <div class="small-9 columns">
+                                    <input id="test_dims" name="dims" type="text" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="small-3 columns"> <label for="id" class="right inline qlabel">Text:</label> </div>
+                                <div class="small-9 columns textareadiv">
+                                    <textarea id="test_q" name="q" rows="5"> </textarea>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <div class="row">
+                            <div class="small-2 columns"> </div>
+                            <div class="small-2 columns">
+                                <button class="button radius small" type="submit"><span id="bt_test" class="qtext">Submit</span></button>
+                            </div>
+                        </div>
+
+
+                        <fieldset>
+                            <legend>Response</legend>
+
+                            <div class="row">
+                                <div class="small-3 columns"> <label for="id" class="right inline qlabel">Response:</label> </div>
+                                <div class="small-9 columns textareadiv">
+                                    <textarea id="test_res" name="res" rows="10"> </textarea>
+                                </div>
+                            </div>
+                        </fieldset>
+
+
+
+
+
+
+
+
+
+                    </form>
+
+            </div>
+        </section>
+        <script src="js/vendor/jquery.js"></script>
+        <script src="js/foundation.min.js"></script>
+        <script> $(document).foundation(); </script>
+    </body>
+</html>

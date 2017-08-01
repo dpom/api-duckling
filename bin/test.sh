@@ -2,7 +2,9 @@
 
 [ $# -eq 0 ] && { echo "Usage: $0 \"text\" [dims [module]]"; exit 1; }
 
-URL=http://sample-env.2riifp3zdg.eu-central-1.elasticbeanstalk.com/parse
+# URL=http://sample-env.2riifp3zdg.eu-central-1.elasticbeanstalk.com/parse
+URL=http://localhost:3000/message
+
 # MODULE="ro\$core"
 
 # [ $# -gt 2 ] && { MODULE=$3; }
@@ -13,4 +15,4 @@ URL=http://sample-env.2riifp3zdg.eu-central-1.elasticbeanstalk.com/parse
 #   curl -X POST $URL --data '{"text":"$1", "module":"$MODULE"}' --header "Content-type:application/json"
 # fi
 
-curl -X POST $URL --data '{"text":"$1"}' --header "Content-type:application/json"
+curl -X POST $URL --data '{"q":"$1"}' --header "Content-type:application/json"

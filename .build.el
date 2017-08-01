@@ -26,7 +26,7 @@
 
 (task 'format '() "format the project" '(lambda (&optional x) "lein cljfmt fix"))
 
-(task 'check '() "check the project" '(lambda (&optional x) "lein with-profile +check checkall"))
+(task 'check '() "check the project" '(lambda (&optional x) "lein checkall"))
 
 (task 'tree '() "tree dependencies" '(lambda (&optional x) "lein do clean, deps :tree"))
 
@@ -36,7 +36,7 @@
 
 (task 'package '() "package the library" '(lambda (&optional x) "lein do clean, uberjar"))
 
-(task 'run '() "run the server" '(lambda (&optional x) "lein ring server"))
+(task 'run '() "run the server" '(lambda (&optional x) "lein ring server-headless"))
 
 ;; (task 'deploy '() "deploy to clojars" '(lambda (&optional x) "lein deploy clojars"))
 

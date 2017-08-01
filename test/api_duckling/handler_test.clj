@@ -24,7 +24,9 @@
       (is (= 404 (:status response) ))))
 
   (testing "parse route default dimensions"
-    (let [response (app (-> (mock/request :post "/parse") (json-body {"text" "trei kilometrii si doi litrii"})))]
+    (let [response (app (-> (mock/request :post "/parse")
+                            (json-body
+                             {"text" "trei kilometrii si doi litrii"})))]
       (is (=  200 (:status response)))
       (is (= [{:body "trei",
             :dim "number",
@@ -138,7 +140,9 @@
              (:tokens (json/parse-string (:body response) true) )))))
 
   (testing "parse route set dimensions"
-    (let [response (app (-> (mock/request :post "/parse") (json-body {"text" "10 lei", "dims" "number,amount-of-money" })))]
+    (let [response (app (-> (mock/request :post "/parse")
+                            (json-body {"text" "10 lei",
+                                        "dims" "number,amount-of-money"})))]
       (is (=  200 (:status response)))
       (is (=   [{:body "10 lei",
                  :dim "amount-of-money",
@@ -153,7 +157,10 @@
               (:tokens (json/parse-string (:body response) true) )))))
 
   (testing "parse route dimensions and module"
-    (let [response (app (-> (mock/request :post "/parse") (json-body {"module" "en$core" "text" "two degrees", "dims" "temperature" })))]
+    (let [response (app (-> (mock/request :post "/parse")
+                            (json-body {"module" "en$core"
+                                        "text" "two degrees",
+                                        "dims" "temperature" })))]
       (is (=  200 (:status response)))
       (is (=  [{:body "two degrees",
                 :dim "temperature",
